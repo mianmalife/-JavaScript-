@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <div id="main"></div>
+  <script>
+    window.onload = function () {
+      var main = document.getElementById('main')
+      var count = 0
+      function getUserAction(e) {
+        main.innerHTML = count++
+      }
+      function antShake(fn, wait, immediate) {
+        var timer
+        var shake = function () {
+          var context = this
+          var args = arguments
+          var result
+          if (timer) clearTimeout(timer)
+          if (immediate) {
+            var allow = !timer
+            timer = setTimeout(function () {
+              timer = null
+            }, wait)
+            if (allow) result = fn.apply(context, args)
+          } else {
+            timer = setTimeout(function () {
+              fn.apply(context, args)
+            }, wait)
+          }
+          return result
+        }
+
+        shake.cancel = function () {
+          clearTimeout(timer)
+          timer = null
+        }
+        return shake
+      }
+      var setUserAction = antShake(getUserAction, 1000*10, true)
+
+      main.onmousemove = setUserAction
+    }
+  </script>
+</body>
+
+</html>
