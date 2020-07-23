@@ -1,4 +1,4 @@
-# 深入JavaScript系列
+# 原生JavaScript系列
 ## new的模拟实现
 ## call的模拟实现（or apply）
 ```
